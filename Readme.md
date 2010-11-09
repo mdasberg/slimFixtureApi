@@ -20,6 +20,10 @@ As you can see there are 3 parameters to the widget:
 2: This parameter is not required, but should point to a property file in which we can add fixtureApiExcludes. These excludes need to be in the following format: **package.,package2.**
 3: This parameter is not required, but is a indicator for enabling the refreshing of the classloader for each page refresh.
 
+**Starting fitnesse**
+To start fitnesse you need to add the plugins to the classpath:
+**java -cp fitnesse.jar:plugins/slimFixtureApi-<version>-jar-with-dendencies.jar fitnesseMain.FitNesseMain -p 8080**
+
 **How it works**
 The widget scans all the dependencies, source and test classes and finds all Fixtures. These Fixtures are then rendered in Slim table format. For now only Fixtures that end with the word Fixture are seen as fixtures.
 
