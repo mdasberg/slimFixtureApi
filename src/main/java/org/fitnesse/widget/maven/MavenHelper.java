@@ -30,6 +30,7 @@ import static org.apache.maven.embedder.MavenEmbedder.validateConfiguration;
 /**
  * MavenHelper is a singleton that takes care of reading in the pom.xml and create a classloader
  * with all dependencies and classes which are available.
+ *
  * @author mdasberg
  */
 public class MavenHelper {
@@ -44,6 +45,7 @@ public class MavenHelper {
 
     /**
      * Gets the instance.
+     *
      * @return instance The instance.
      */
     public static MavenHelper instance(File pom, File properties) {
@@ -59,6 +61,7 @@ public class MavenHelper {
 
     /**
      * Gets the instance.
+     *
      * @return instance The instance.
      */
     public static MavenHelper newInstance(File pom, File properties) {
@@ -68,6 +71,7 @@ public class MavenHelper {
 
     /**
      * Constructor.
+     *
      * @param pom The pom file.
      */
     private MavenHelper(File pom, File properties) {
@@ -77,7 +81,11 @@ public class MavenHelper {
         Properties props = new Properties();
         try {
             props.load(new FileReader(properties));
-            excludes = Arrays.asList(split((String) props.get("fixtureApiExcludes"), ","));
+            if (props.get("fixtureApiExcludes") != null) {
+                excludes = Arrays.asList(split((String) props.get("fixtureApiExcludes"), ","));
+            } else {
+                excludes = new ArrayList<String>();
+            }
         } catch (IOException e) {
             excludes = new ArrayList<String>();
         }
@@ -88,7 +96,8 @@ public class MavenHelper {
 
     /**
      * Validate file.
-     * @param file The file.
+     *
+     * @param file     The file.
      * @param fileName The filename.
      */
     private void validateFile(File file, String fileName) {
@@ -103,6 +112,7 @@ public class MavenHelper {
 
     /**
      * Gets the maven configuration.
+     *
      * @return configuration The configuration.
      */
     private Configuration getConfiguration() {
@@ -131,6 +141,7 @@ public class MavenHelper {
 
     /**
      * Gets the newly created ClassRealm for fitnesse.
+     *
      * @return classRealm The ClassRealm.
      */
     private ClassRealm getClassRealm() {
@@ -156,8 +167,9 @@ public class MavenHelper {
 
     /**
      * Gets all classpath elements.
+     *
      * @param configuration The maven configuration.
-     * @param request The reuest.
+     * @param request       The reuest.
      * @return classpathElements The classpathElements.
      */
     private Collection<String> getClasspathElements(Configuration configuration, MavenExecutionRequest request) {
@@ -204,6 +216,7 @@ public class MavenHelper {
 
     /**
      * Gets the fixtures from the classpath.
+     *
      * @return fixtures The fixtures.
      */
     public Collection<String> getFixtures() {
@@ -220,6 +233,7 @@ public class MavenHelper {
 
     /**
      * Gets the date that the classpath was constructed.
+     *
      * @return date The date.
      */
     public Date getInstanceDate() {
@@ -228,6 +242,7 @@ public class MavenHelper {
 
     /**
      * Gets the class from the Classrealm.
+     *
      * @param className The classname.
      * @return clazz The Class.
      */
@@ -241,6 +256,7 @@ public class MavenHelper {
 
     /**
      * Gets the base directory.
+     *
      * @return baseDirectory The base directory.
      */
     private String getBaseDir() {
@@ -250,6 +266,7 @@ public class MavenHelper {
 
     /**
      * Gets the Fixtures from the classpath.
+     *
      * @param urls The urls.
      * @return fixtures The fixtures.
      */
@@ -269,6 +286,7 @@ public class MavenHelper {
 
     /**
      * Gets all the fixtures from the given URL.
+     *
      * @param url The URL.
      * @return fixtures The fixtures.
      */
@@ -295,8 +313,9 @@ public class MavenHelper {
 
     /**
      * Gets the Classes from the given directory.
+     *
      * @param directory The root directory.
-     * @param basePath The base path.
+     * @param basePath  The base path.
      * @return fixtures The fixtures.
      */
     private List<String> getFixturesFromDirectory(File directory, String basePath) {
@@ -321,6 +340,7 @@ public class MavenHelper {
 
     /**
      * Indicates that the current class is a fixture.
+     *
      * @param className The name of the class.
      * @return <code>true</code> when the class is a fixture, otherwise <code>false</code>.
      */
@@ -331,6 +351,7 @@ public class MavenHelper {
 
     /**
      * Converts the name of the file to a classname.
+     *
      * @param fileName The filename.
      * @return className The classname.
      */
