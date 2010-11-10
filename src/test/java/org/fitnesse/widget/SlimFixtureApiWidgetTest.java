@@ -48,32 +48,32 @@ public class SlimFixtureApiWidgetTest {
         Pattern pattern = Pattern.compile(REGEXP);
         Matcher matcher = pattern.matcher("!" + FIXTURE_API + " ../../../pom.xml");
         matcher.find();
-        assertEquals(matcher.group(1), "../../../pom.xml");
+        assertEquals("../../../pom.xml", matcher.group(1));
         assertNull(matcher.group(3));
         assertNull(matcher.group(5));
 
         matcher = pattern.matcher("!" + FIXTURE_API + " ../../../pom.xml ../test.properties");
         matcher.find();
-        assertEquals(matcher.group(1), "../../../pom.xml");
-        assertEquals(matcher.group(3), "../test.properties");
+        assertEquals("../../../pom.xml", matcher.group(1));
+        assertEquals("../test.properties", matcher.group(3));
         assertNull(matcher.group(5));
 
         matcher = pattern.matcher("!" + FIXTURE_API + " ../../../pom.xml refresh");
         matcher.find();
-        assertEquals(matcher.group(1), "../../../pom.xml");
+        assertEquals("../../../pom.xml", matcher.group(1));
         assertNull(matcher.group(3));
-        assertEquals(matcher.group(5), "refresh");
+        assertEquals("refresh", matcher.group(5));
 
          matcher = pattern.matcher("!" + FIXTURE_API + " ../../../pom.xml bla");
         matcher.find();
-        assertEquals(matcher.group(1), "../../../pom.xml");
+        assertEquals("../../../pom.xml", matcher.group(1));
         assertNull(matcher.group(3));
         assertNull(matcher.group(5));
 
         matcher = pattern.matcher("!" + FIXTURE_API + " ../../../pom.xml ../test.properties refresh");
         matcher.find();
-        assertEquals(matcher.group(1), "../../../pom.xml");
-        assertEquals(matcher.group(3), "../test.properties");
-        assertEquals(matcher.group(5), "refresh");
+        assertEquals("../../../pom.xml", matcher.group(1));
+        assertEquals("../test.properties", matcher.group(3));
+        assertEquals("refresh", matcher.group(5));
     }
 }
